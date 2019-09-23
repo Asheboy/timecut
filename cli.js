@@ -82,6 +82,7 @@ commander
   })
   .option('--no-headless', 'Chromium/Chrome runs in a window instead of headless mode')
   .option('--keep-frames', 'Doesn\'t delete frames after processing them. Doesn\'t do anything in pipe mode')
+  .option('--capture-while-selector-exists <selector>', 'Only captures frames where the provided selector exists on the DOM.')
   .parse(process.argv);
 
 commander.url = commander.args[0] || 'index.html';

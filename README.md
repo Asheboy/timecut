@@ -106,6 +106,14 @@ timecut "https://tungs.github.io/truchet-tiles-original/#autoplay=true&switchSty
 ```
 Opens https://tungs.github.io/truchet-tiles-original/#autoplay=true&switchStyle=random (note the quotes in the url and selector are necessary because of the `#` and `&`). Crops each frame to the `#container` element, with an additional crop of 20px, 40px, 6px, and 30px for the left, top, right, and bottom, respectively. Captures frames for 20 virtual seconds at 60fps to `video.mp4` in the current working directory.
 
+**<a name="cli-example-capture-while-selector-exists" href="#cli-example-capture-while-selector-exists">#</a> Capturing when only a selector is on the DOM**:
+```
+timecut "picure.html" \ 
+  --capture-while-selector-exists ".ready" \ 
+  --duration=20 --fps=60
+```
+Opens `picture.html`. Only capturing frames when there is an element matching the selector of `.frame` on the DOM. Captures frames for 20 virtual seconds (independant of whether the selector element is present or not) at 60fps to `video.mp4` in the current working directory. 
+
 ### <a name="cli-options" href="#cli-options">#</a> Command Line *options*
 * <a name="cli-options-output" href="#cli-options-output">#</a> Output: `-O`, `--output` *name*
     * Tells ffmpeg to save the video as *name*. Its file extension determines encoding if not explicitly specified.
@@ -165,6 +173,8 @@ Opens https://tungs.github.io/truchet-tiles-original/#autoplay=true&switchStyle=
     * Pixel format for output video (default: `yuv420p`).
 * <a name="cli-options-start-delay" href="#cli-options-start-delay">#</a> Start Delay: `--start-delay` *n seconds*
     * Waits *n real seconds* after loading the page before starting to capture.
+* <a name="cli-options-capture-while-selector-exists" href="#cli-options-capture-while-selector-exists">#</a>
+    * Capture While Selector Exists:`--capture-while-selector-exists`*selector*
 * <a name="cli-options-keep-frames" href="#cli-options-keep-frames">#</a> Keep Frames: `--keep-frames`
     * Doesn't delete frames after processing them. Doesn't do anything in pipe mode.
 * <a name="cli-options-quiet" href="#cli-options-quiet">#</a> Quiet: `-q`, `--quiet`
@@ -277,6 +287,7 @@ The Node API is structured similarly to the command line options, but there are 
     * <a name="js-config-output-options" href="#js-config-output-options">#</a> `outputOptions` &lt;[Array][] &lt;[string][]&gt;&gt; Extra arguments for ffmpeg output. Example: `['-vf', 'scale=320:240']`
     * <a name="js-config-pixel-format" href="#js-config-pixel-format">#</a> `pixelFormat` &lt;[string][]&gt; Pixel format for output video (default: `yuv420p`).
     * <a name="js-config-start-delay" href="#js-config-start-delay">#</a> `startDelay` &lt;[number][]&gt; Waits `config.loadDelay` real seconds after loading before starting (default: `0`).
+    * <a name="js-config-capture-while-selector-exists" href="#js-config-capture-while-selector-exists">#</a> `captureWhileSelectorExists` &lt;[string][]&gt; Captures only when`config.captureWhileSelectorExists`is on the DOM. 
     * <a name="js-config-keep-frames" href="#js-config-keep-frames">#</a> `keepFrames` &lt;[boolean][]&gt; If set to true, doesn't delete frames after processing them. Doesn't do anything in pipe mode.
     * <a name="js-config-quiet" href="#js-config-quiet">#</a> `quiet` &lt;[boolean][]&gt; Suppresses console logging.
     * <a name="js-config-log-to-std-err" href="#js-config-log-to-std-err">#</a> `logToStdErr` &lt;[boolean][]&gt; Logs to stderr instead of stdout. Doesn't do anything if `config.quiet` is set to true.
