@@ -112,6 +112,12 @@ module.exports = function (config) {
     }
   };
 
+  const cleanUp = function () {
+    if (frameMode && !config.keepFrames) {
+      deleteFolder(frameDirectory);
+    }
+  };
+
   var makeProcessPromise = function () {
     makeFileDirectoryIfNeeded(output);
     var input;
@@ -176,10 +182,9 @@ module.exports = function (config) {
         return makeProcessPromise();
       }
     }).catch(function (err) {
-      log(err);
+      cleanUp();
+      throw err;
     }).then(function () {
-      if (frameMode && !config.keepFrames) {
-        deleteFolder(frameDirectory);
-      }
+      cleanUp();
     });
 };
