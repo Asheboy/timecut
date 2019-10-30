@@ -181,10 +181,9 @@ module.exports = function (config) {
       } else {
         return makeProcessPromise();
       }
+    }).finally(function () {
+      cleanUp();
     }).catch(function (err) {
-      cleanUp();
       throw err;
-    }).then(function () {
-      cleanUp();
     });
 };
