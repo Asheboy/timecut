@@ -79,6 +79,7 @@ module.exports = function (config) {
   var pipeMode = config.pipeMode;
   var processError;
   var outputPattern;
+  var extension = config.screenshotType === 'jpeg' ? '.jpg' : '.png'
   var convertProcess, processPromise;
   if (frameMode) {
     if (!frameDirectory) {
@@ -88,7 +89,7 @@ module.exports = function (config) {
       frameDirectory = path.join(config.frameCache, frameDirectory);
     }
     frameDirectory = path.resolve(path.parse(output).dir, frameDirectory);
-    outputPattern = path.resolve(frameDirectory, 'image-%09d.png');
+    outputPattern = path.resolve(frameDirectory, 'image-%09d' + extension);
   } else {
     outputPattern = '';
   }
